@@ -1,5 +1,7 @@
+import ml.darubyminer360.gradleutils.GradleUtils
+
 plugins {
-    id 'net.minecraftforge.gradleutils' version '2.+'
+    id 'ml.darubyminer360.gradleutils' version '2.2.0'
     id 'com.github.ben-manes.versions' version '0.39.0'
     id 'org.javamodularity.moduleplugin' version '1.8.10'
     id 'java-library'
@@ -7,13 +9,18 @@ plugins {
     id 'eclipse'
 }
 
-group 'cpw.mods'
+group 'ml.cloudmc'
 
 version = gradleutils.getTagOffsetVersion()
 logger.lifecycle("Version: $version")
 
 repositories {
     mavenLocal()
+    mavenCentral()
+    maven {
+        name = 'Cloud'
+        url = 'https://maven.cloudmc.ml/releases/'
+    }
     maven {
         name 'forge'
         url 'https://maven.minecraftforge.net/'
@@ -21,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation('cpw.mods:securejarhandler:2.1.2')
+    implementation('ml.cloudmc:SecureJarHandler:2.1.4')
 }
 
 java {
@@ -61,26 +68,26 @@ publishing {
         pom {
             name = 'Bootstrap launcher'
             description = 'Allows bootstrapping a modularized environment from a classpath one'
-            url = 'https://github.com/McModLauncher/bootstraplauncher'
+            url = 'https://github.com/CloudLoaderMC/BootstrapLauncher'
             scm {
-                url = 'https://github.com/McModLauncher/bootstraplauncher'
-                connection = 'scm:git:git@github.com:McModLauncher/bootstraplauncher.git'
-                developerConnection = 'scm:git:git@github.com:McModLauncher/bootstraplauncher.git'
+                url = 'https://github.com/CloudLoaderMC/BootstrapLauncher'
+                connection = 'scm:git:git@github.com:CloudLoaderMC/BootstrapLauncher.git'
+                developerConnection = 'scm:git:git@github.com:CloudLoaderMC/BootstrapLauncher.git'
             }
             issueManagement {
                 system = 'github'
-                url = 'https://github.com/McModLauncher/bootstraplauncher/issues'
+                url = 'https://github.com/CloudLoaderMC/BootstrapLauncher/issues'
             }
             developers {
                 developer {
-                    id = 'cpw'
-                    name = 'cpw'
+                    id = 'DaRubyMiner360'
+                    name = 'DaRubyMiner360'
                 }
             }
         }
     }
     repositories {
-        maven gradleutils.getPublishingForgeMaven()
+        maven GradleUtils.getPublishingCloudMaven(project)
     }
 }
 
